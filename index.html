@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belleza Online | Tu belleza, tu estilo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #49343e;
+      background: #fff9fc;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #f4d5e2;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #49343e;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .logo:focus-visible {
+      outline: 2px solid #a52e68;
+      outline-offset: 5px;
+    }
+
+    .logo-marca {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+    }
+
+    .logo-texto strong {
+      color: #a52e68;
+    }
+
+    nav a {
+      color: #49343e;
+      text-decoration: none;
+      margin-left: 18px;
+      font-weight: bold;
+    }
+
+    .portada {
+      text-align: center;
+      padding: 75px 20px;
+      background: linear-gradient(135deg, #ffe7f0, #fff8fb);
+    }
+
+    .portada h1 {
+      color: #a52e68;
+      font-size: clamp(32px, 6vw, 48px);
+      margin-bottom: 15px;
+    }
+
+    .portada p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+    }
+
+    .boton {
+      display: inline-block;
+      background: #b63b77;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 0;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .logo-dialog {
+      width: min(480px, calc(100% - 32px));
+      margin: auto;
+      padding: 32px;
+      border: 0;
+      border-radius: 12px;
+      color: #49343e;
+      background: #fff9fc;
+      box-shadow: 0 18px 60px #1e101b55;
+    }
+
+    .logo-dialog::backdrop {
+      background: #26151fcc;
+      backdrop-filter: blur(4px);
+    }
+
+    .logo-dialog-contenido {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .logo-marca-grande {
+      width: 132px;
+      height: 132px;
+      flex: 0 0 132px;
+      animation: logo-entrada 320ms ease-out both;
+    }
+
+    .logo-dialog h2 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: 27px;
+    }
+
+    .logo-dialog p {
+      margin-top: 5px;
+      color: #6c5962;
+    }
+
+    .logo-dialog form {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    @keyframes logo-entrada {
+      from { opacity: 0; transform: scale(.72); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    section {
+      padding: 55px 7%;
+      text-align: center;
+    }
+
+    h2 {
+      color: #a52e68;
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .introduccion {
+      margin-bottom: 28px;
+    }
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      margin-top: 36px;
+    }
+
+    .tarjeta {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 18px #00000014;
+      padding-bottom: 26px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .tarjeta:hover,
+    .tarjeta:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 28px #49343e24;
+    }
+
+    .tarjeta img {
+      display: block;
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 220ms ease, opacity 180ms ease;
+    }
+
+    .tarjeta img.cambiando {
+      opacity: .35;
+    }
+
+    .tarjeta:hover img,
+    .tarjeta:focus-within img {
+      transform: scale(1.04);
+    }
+
+    .tarjeta h3 {
+      margin: 20px 16px 7px;
+      color: #a52e68;
+      font-size: 22px;
+    }
+
+    .tarjeta p {
+      padding: 0 20px;
+    }
+
+    .precio {
+      font-weight: bold;
+      color: #b63b77;
+      margin: auto 0 0;
+      padding-top: 10px;
+    }
+
+    .detalle-servicio {
+      min-height: 64px;
+      margin: 10px 0 16px;
+      color: #6c5962;
+      font-size: 14px;
+    }
+
+    .reservar-link {
+      align-self: center;
+      margin-top: 14px;
+      color: #a52e68;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    #agendar {
+      background: #fceaf2;
+    }
+
+    .formulario-turnos {
+      max-width: 820px;
+      margin: 28px auto 0;
+      padding: 26px;
+      border: 1px solid #ead5df;
+      border-radius: 8px;
+      background: white;
+      text-align: left;
+    }
+
+    .campos-formulario {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .campo {
+      display: grid;
+      gap: 6px;
+    }
+
+    .campo-completo {
+      grid-column: 1 / -1;
+    }
+
+    .campo label {
+      color: #49343e;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .campo input,
+    .campo select,
+    .campo textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #cbb9c1;
+      border-radius: 5px;
+      color: #49343e;
+      background: #fff;
+      font: inherit;
+    }
+
+    .campo textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .campo input:focus,
+    .campo select:focus,
+    .campo textarea:focus {
+      outline: 2px solid #a52e68;
+      outline-offset: 1px;
+    }
+
+    .ayuda-formulario,
+    .nota-ubicacion {
+      margin-top: 14px;
+      color: #6c5962;
+      font-size: 13px;
+    }
+
+    .formulario-turnos .boton {
+      margin-top: 20px;
+    }
+
+    #ubicacion {
+      background: #fff;
+    }
+
+    #operador {
+      background: #f4d5e2;
+    }
+
+    #operador .boton {
+      margin-top: 18px;
+    }
+
+    #nosotros {
+      background: #fceaf2;
+    }
+
+    footer {
+      background: #49343e;
+      color: white;
+      padding: 25px 15px;
+      text-align: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tarjeta,
+      .tarjeta img,
+      .logo-marca-grande {
+        transition: none;
+        animation: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 5px 8px;
+      }
+
+      section {
+        padding: 40px 5%;
+      }
+
+      .logo-dialog-contenido {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .logo-marca-grande {
+        width: 112px;
+        height: 112px;
+        flex-basis: 112px;
+      }
+
+      .campos-formulario {
+        grid-template-columns: 1fr;
+      }
+
+      .campo-completo {
+        grid-column: auto;
+      }
+
+      .formulario-turnos {
+        padding: 20px;
+      }
+
+      .catalogo {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="logo" id="logoButton" type="button" aria-label="Ampliar logo de Belleza Online" aria-haspopup="dialog" aria-controls="logoDialog">
+      <svg class="logo-marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <circle cx="24" cy="24" r="22" fill="#fff9fc" stroke="#a52e68" stroke-width="1.2" />
+        <path d="M24 26c-3-5-8-8-5-12 2-3 5-1 5 2 0-3 3-5 5-2 3 4-2 7-5 12Z" fill="#b63b77" />
+        <path d="M24 26c5-3 8-8 12-5 3 2 1 5-2 5 3 0 5 3 2 5-4 3-7-2-12-5Z" fill="#d86a91" />
+        <path d="M24 26c3 5 8 8 5 12-2 3-5 1-5-2 0 3-3 5-5 2-3-4 2-7 5-12Z" fill="#b63b77" />
+        <path d="M24 26c-5 3-8 8-12 5-3-2-1-5 2-5-3 0-5-3-2-5 4-3 7 2 12 5Z" fill="#d86a91" />
+        <circle cx="24" cy="26" r="2.4" fill="#d4a54a" />
+        <path d="M24 29v9m0-4c-2-3-5-3-7-2 2 3 4 4 7 4m0-3c2-3 5-3 7-2-2 3-4 4-7 4" fill="none" stroke="#58765c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
+      </svg>
+      <span class="logo-texto">Belleza <strong>Online</strong></span>
+    </button>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#agendar">Agendar turno</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#operador">Operador</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+  </header>
+
+  <dialog class="logo-dialog" id="logoDialog" aria-labelledby="logoDialogTitle">
+    <div class="logo-dialog-contenido">
+      <svg class="logo-marca-grande" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <circle cx="24" cy="24" r="22" fill="#fff9fc" stroke="#a52e68" stroke-width="1.2" />
+        <path d="M24 26c-3-5-8-8-5-12 2-3 5-1 5 2 0-3 3-5 5-2 3 4-2 7-5 12Z" fill="#b63b77" />
+        <path d="M24 26c5-3 8-8 12-5 3 2 1 5-2 5 3 0 5 3 2 5-4 3-7-2-12-5Z" fill="#d86a91" />
+        <path d="M24 26c3 5 8 8 5 12-2 3-5 1-5-2 0 3-3 5-5 2-3-4 2-7 5-12Z" fill="#b63b77" />
+        <path d="M24 26c-5 3-8 8-12 5-3-2-1-5 2-5-3 0-5-3-2-5 4-3 7 2 12 5Z" fill="#d86a91" />
+        <circle cx="24" cy="26" r="2.4" fill="#d4a54a" />
+        <path d="M24 29v9m0-4c-2-3-5-3-7-2 2 3 4 4 7 4m0-3c2-3 5-3 7-2-2 3-4 4-7 4" fill="none" stroke="#58765c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
+      </svg>
+      <div>
+        <h2 id="logoDialogTitle">Belleza Online</h2>
+        <p>Tu belleza, tu estilo</p>
+      </div>
+    </div>
+    <form method="dialog">
+      <button class="boton" type="submit">Cerrar</button>
+    </form>
+  </dialog>
+
+  <main>
+    <section class="portada" id="inicio">
+      <h1>Tu belleza, tu estilo</h1>
+      <p>
+        Descubre nuestros servicios de belleza y encuentra el estilo
+        ideal para resaltar lo mejor de ti.
+      </p>
+      <a class="boton" href="#servicios">Descubrir servicios</a>
+    </section>
+
+    <section id="servicios">
+      <h2>Nuestros servicios</h2>
+      <p class="introduccion">
+        Cuidamos cada detalle para que te sientas especial.
+      </p>
+
+      <div class="catalogo">
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Productos de maquillaje y belleza" loading="lazy">
+          <h3>Maquillaje</h3>
+          <p>Realza tu belleza para ocasiones especiales.</p>
+          <p class="detalle-servicio">Preparación de piel y acabado adaptado a tu evento y estilo.</p>
+          <p class="precio">Desde Bs 80</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Maquillaje">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Interior de un salón de peluquería" loading="lazy">
+          <h3>Peluquería</h3>
+          <p>Cortes y peinados para renovar tu estilo.</p>
+          <p class="detalle-servicio">Asesoría de imagen, corte y peinado según el resultado que buscas.</p>
+          <p class="precio">Desde Bs 40</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Peluquería">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Esmaltes para manicure" loading="lazy">
+          <h3>Manicure</h3>
+          <p>Cuidado y belleza para tus manos y uñas.</p>
+          <p class="detalle-servicio">Limpieza, limado y esmaltado para cuidar tus manos.</p>
+          <p class="precio">Desde Bs 30</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Manicure">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Tratamiento facial en un spa" loading="lazy">
+          <h3>Limpieza facial</h3>
+          <p>Una rutina profunda para una piel fresca y luminosa.</p>
+          <p class="detalle-servicio">Limpieza, exfoliación suave e hidratación. Consulta el tipo de piel.</p>
+          <p class="precio">Consultar precio</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Limpieza facial">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1583001809873-a128495da465?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Aplicación de maquillaje para realzar la mirada" loading="lazy">
+          <h3>Pestañas</h3>
+          <p>Realza tu mirada con diseño y cuidado personalizado.</p>
+          <p class="detalle-servicio">Diseño de mirada y aplicación según tu preferencia.</p>
+          <p class="precio">Consultar precio</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Pestañas">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Espacio de spa para relajación" loading="lazy">
+          <h3>Spa y relajación</h3>
+          <p>Un momento para desconectar y renovar tu energía.</p>
+          <p class="detalle-servicio">Consulta las opciones de cuidado y relajación disponibles.</p>
+          <p class="precio">Consultar precio</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Spa y relajación">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Diseño de cejas y cuidado de la mirada" loading="lazy">
+          <h3>Diseño de cejas</h3>
+          <p>Define y armoniza tus cejas según tus facciones.</p>
+          <p class="detalle-servicio">Perfilado y asesoría de forma para realzar tu mirada.</p>
+          <p class="precio">Consultar precio</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Diseño de cejas">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Cuidado y esmaltado de pies" loading="lazy">
+          <h3>Pedicure</h3>
+          <p>Un cuidado completo para que tus pies luzcan y se sientan bien.</p>
+          <p class="detalle-servicio">Incluye limpieza, limado y esmaltado. Consulta opciones disponibles.</p>
+          <p class="precio">Consultar precio</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Pedicure">Elegir servicio</a>
+        </article>
+
+        <article class="tarjeta">
+          <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&amp;fit=crop&amp;w=900&amp;q=80" data-galeria="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&amp;fit=crop&amp;w=900&amp;q=80|https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Cuidado capilar en salón de belleza" loading="lazy">
+          <h3>Tratamiento capilar</h3>
+          <p>Nutrición y cuidado para mantener tu cabello saludable.</p>
+          <p class="detalle-servicio">Consulta por tratamientos según tu tipo de cabello y necesidad.</p>
+          <p class="precio">Consultar precio</p>
+          <a class="reservar-link" href="#agendar" data-servicio="Tratamiento capilar">Elegir servicio</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="agendar">
+      <h2>Agenda tu turno</h2>
+      <p class="introduccion">Completa tus datos y enviaremos tu solicitud por WhatsApp para confirmar disponibilidad.</p>
+      <form class="formulario-turnos" id="bookingForm">
+        <div class="campos-formulario">
+          <div class="campo">
+            <label for="nombreTurno">Nombre</label>
+            <input id="nombreTurno" name="nombre" autocomplete="name" required>
+          </div>
+          <div class="campo">
+            <label for="telefonoTurno">Tu WhatsApp</label>
+            <input id="telefonoTurno" name="telefono" type="tel" autocomplete="tel" required>
+          </div>
+          <div class="campo">
+            <label for="servicioTurno">Servicio</label>
+            <select id="servicioTurno" name="servicio" required>
+              <option value="">Selecciona un servicio</option>
+              <option>Maquillaje</option>
+              <option>Peluquería</option>
+              <option>Manicure</option>
+              <option>Limpieza facial</option>
+              <option>Pestañas</option>
+              <option>Spa y relajación</option>
+              <option>Diseño de cejas</option>
+              <option>Pedicure</option>
+              <option>Tratamiento capilar</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="fechaTurno">Fecha preferida</label>
+            <input id="fechaTurno" name="fecha" type="date" required>
+          </div>
+          <div class="campo">
+            <label for="horaTurno">Hora preferida</label>
+            <input id="horaTurno" name="hora" type="time" required>
+          </div>
+          <div class="campo campo-completo">
+            <label for="notaTurno">Nota adicional (opcional)</label>
+            <textarea id="notaTurno" name="nota" placeholder="Cuéntanos si tienes alguna preferencia"></textarea>
+          </div>
+        </div>
+        <button class="boton" type="submit">Solicitar turno por WhatsApp</button>
+        <p class="ayuda-formulario">El turno queda pendiente hasta que el equipo confirme la fecha y hora.</p>
+      </form>
+    </section>
+
+    <section id="nosotros">
+      <h2>Sobre nosotros</h2>
+      <p>
+        En Belleza Online creemos que cada persona tiene un estilo único.
+        Nuestro objetivo es ofrecer ideas y servicios de belleza en un
+        espacio agradable, moderno y accesible.
+      </p>
+    </section>
+
+    <section id="ubicacion">
+      <h2>Cómo llegar</h2>
+      <p>La dirección exacta del local aún está pendiente de confirmar.</p>
+      <a class="boton" href="https://www.google.com/maps/search/?api=1&amp;query=Belleza%20Online%20Bolivia" target="_blank" rel="noopener noreferrer">
+        Buscar Belleza Online en Google Maps
+      </a>
+      <p class="nota-ubicacion">Comparte la dirección del negocio para poner aquí el pin exacto y las indicaciones.</p>
+    </section>
+
+    <section id="operador">
+      <h2>Habla con un operador</h2>
+      <p>¿Tienes dudas sobre precios, servicios o disponibilidad? Escríbenos y te atenderemos directamente.</p>
+      <a class="boton" href="https://wa.me/59177293094?text=Hola%2C%20quiero%20hablar%20con%20un%20operador%20de%20Belleza%20Online." target="_blank" rel="noopener noreferrer">
+        Contactar a un operador por WhatsApp
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Belleza Online. Todos los derechos reservados.</p>
+    <p>Proyecto de innovación tecnológica</p>
+  </footer>
+
+  <script>
+    const logoButton = document.getElementById("logoButton");
+    const logoDialog = document.getElementById("logoDialog");
+    const bookingForm = document.getElementById("bookingForm");
+    const serviceSelect = document.getElementById("servicioTurno");
+    const dateInput = document.getElementById("fechaTurno");
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll(".tarjeta img[data-galeria]").forEach((image) => {
+        const card = image.closest(".tarjeta");
+        const images = [image.src, ...image.dataset.galeria.split("|")];
+        let currentIndex = 0;
+        let rotationTimer;
+        let changeTimer;
+        let isChanging = false;
+        let isActive = false;
+
+        const showNextImage = () => {
+          if (isChanging) return;
+
+          const nextIndex = (currentIndex + 1) % images.length;
+          const preload = new Image();
+          isChanging = true;
+          preload.onload = () => {
+            if (!isActive) {
+              isChanging = false;
+              return;
+            }
+
+            image.classList.add("cambiando");
+            changeTimer = window.setTimeout(() => {
+              image.src = preload.src;
+              image.classList.remove("cambiando");
+              currentIndex = nextIndex;
+              isChanging = false;
+            }, 120);
+          };
+          preload.onerror = () => {
+            isChanging = false;
+          };
+          preload.src = images[nextIndex];
+        };
+
+        const startRotation = () => {
+          if (rotationTimer) return;
+          isActive = true;
+          rotationTimer = window.setInterval(showNextImage, 1600);
+        };
+
+        const stopRotation = () => {
+          isActive = false;
+          window.clearInterval(rotationTimer);
+          window.clearTimeout(changeTimer);
+          rotationTimer = undefined;
+          currentIndex = 0;
+          isChanging = false;
+          image.classList.remove("cambiando");
+          image.src = images[0];
+        };
+
+        card.addEventListener("pointerenter", startRotation);
+        card.addEventListener("pointerleave", stopRotation);
+        card.addEventListener("focusin", startRotation);
+        card.addEventListener("focusout", (event) => {
+          if (!card.contains(event.relatedTarget)) stopRotation();
+        });
+      });
+    }
+
+    logoButton.addEventListener("click", () => logoDialog.showModal());
+    logoDialog.addEventListener("click", (event) => {
+      if (event.target === logoDialog) logoDialog.close();
+    });
+
+    document.querySelectorAll("[data-servicio]").forEach((link) => {
+      link.addEventListener("click", () => {
+        serviceSelect.value = link.dataset.servicio;
+      });
+    });
+
+    const localToday = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, 10);
+    dateInput.min = localToday;
+
+    bookingForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!bookingForm.reportValidity()) return;
+
+      const formData = new FormData(bookingForm);
+      const message = [
+        "Hola, quiero solicitar un turno en Belleza Online.",
+        `Nombre: ${formData.get("nombre")}`,
+        `WhatsApp: ${formData.get("telefono")}`,
+        `Servicio: ${formData.get("servicio")}`,
+        `Fecha preferida: ${formData.get("fecha")}`,
+        `Hora preferida: ${formData.get("hora")}`,
+        formData.get("nota") ? `Nota: ${formData.get("nota")}` : ""
+      ].filter(Boolean).join("\n");
+
+      window.open(
+        `https://wa.me/59177293094?text=${encodeURIComponent(message)}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+  </script>
+
+</body>
+</html>
